@@ -1,15 +1,16 @@
 [
   {
-    "__type__": "cc.SceneAsset",
+    "__type__": "cc.Prefab",
     "_name": "",
     "_objFlags": 0,
     "_rawFiles": null,
-    "scene": {
+    "data": {
       "__id__": 1
     }
   },
   {
-    "__type__": "cc.Scene",
+    "__type__": "cc.Node",
+    "_name": "game-world",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -19,55 +20,15 @@
     ],
     "_tag": -1,
     "_active": true,
-    "_components": [],
-    "_prefab": null,
-    "_id": "bc1e7de1-db6f-426a-8948-caa98303a7a3",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
-    },
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0,
-    "autoReleaseAssets": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Canvas",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
-    "_children": [
-      {
-        "__id__": 3
-      }
-    ],
-    "_tag": -1,
-    "_active": true,
     "_components": [
       {
         "__id__": 5
       }
     ],
-    "_prefab": null,
-    "_id": "8ebd6t7APtLcIOag5bqUxny",
+    "_prefab": {
+      "__id__": 6
+    },
+    "_id": "",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -84,8 +45,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 0,
+      "height": 0
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -93,8 +54,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 480,
-      "y": 320
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -105,21 +66,23 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "game-controller",
+    "_name": "VIEW_BACK",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 2
+      "__id__": 1
     },
     "_children": [],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 4
+        "__id__": 3
       }
     ],
-    "_prefab": null,
-    "_id": "fc3786qdCZITbcH1tPM/8iA",
+    "_prefab": {
+      "__id__": 4
+    },
+    "_id": "",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -136,8 +99,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 1280,
+      "height": 720
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -156,34 +119,63 @@
     "groupIndex": 0
   },
   {
-    "__type__": "e5737pqjfdGha9C830qIUrH",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 3
-    },
-    "_enabled": true,
-    "main_world_prefab": {
-      "__uuid__": "5c4a5652-76b0-4613-a2a9-b9e2c69d4671"
-    },
-    "game_world_prefab": {
-      "__uuid__": "90a40980-2cf2-4e74-8ae1-2793e5bd04ac"
-    }
-  },
-  {
-    "__type__": "cc.Canvas",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 2
     },
     "_enabled": true,
-    "_designResolution": {
-      "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+    "_spriteFrame": {
+      "__uuid__": "5cc81abf-8532-4dfc-ac79-20e97a765f0d"
     },
-    "_fitWidth": false,
-    "_fitHeight": true
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "90a40980-2cf2-4e74-8ae1-2793e5bd04ac"
+    },
+    "fileId": "c8925qIX4VF0qZoMJioB42i",
+    "sync": false
+  },
+  {
+    "__type__": "f55b3AJbbhN/48FXSegrEj3",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "player_node_prefab": {
+      "__uuid__": "bbd5fbb2-3d6c-4302-96a2-48526f511ca5"
+    }
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "90a40980-2cf2-4e74-8ae1-2793e5bd04ac"
+    },
+    "fileId": "159a02hmmdBw40v5S2UoYFB",
+    "sync": false
   }
 ]

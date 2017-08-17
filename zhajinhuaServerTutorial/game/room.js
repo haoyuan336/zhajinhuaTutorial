@@ -7,7 +7,12 @@ const Room = function () {
     var _playerList = [];
     that.createPlayer = function (uid, socket) {
         console.log("create player = " + uid);
-        _playerList.push(Player(uid, socket));
+        var player = Player(uid, socket);
+        player.sendSyncData({
+            uid: uid,
+            player_list: _playerList
+        });
+        _playerList.push(player);
     };
     that.getPlayerCount = function () {
         return _playerList.length;

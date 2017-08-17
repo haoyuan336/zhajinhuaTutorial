@@ -310,8 +310,8 @@
       "__id__": 1
     },
     "component": "main-world",
-    "handler": "",
-    "customEventData": ""
+    "handler": "buttonClick",
+    "customEventData": "login"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -438,7 +438,10 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "edit_box": {
+      "__id__": 11
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
