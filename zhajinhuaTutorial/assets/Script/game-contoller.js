@@ -24,7 +24,19 @@ cc.Class({
         });
         global.socket.on("sync_data",  (data)=> {
             console.log("sync data = " + JSON.stringify(data));
+            // global.player
             this.enterGameWorld(data);
+        });
+        global.socket.on("player_join", (data)=>{
+            global.gameEventListener.fire("player_join", data);
+        });
+        global.socket.on("player_offline", (uid)=>{
+            console.log("player off line = " + uid);
+            global.gameEventListener.fire("player_offline", uid);
+        });
+        global.socket.on("change_house_manager", (uid)=>{
+           console.log("house manager is change" + uid);
+            global.gameEventListener.fire("change_house_manager", uid);
         });
         this.enterMainWorld();
     },

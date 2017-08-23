@@ -17,6 +17,9 @@ cc.Class({
     buttonClick: function (event, customData) {
         console.log("button click = " + customData);
         console.log("edit box string = " + this.edit_box.string);
-        global.eventlistener.fire("login", this.edit_box.string);
+        if (this.edit_box.string.length !==0 ){
+            global.eventlistener.fire("login", this.edit_box.string);
+        }
+
     }
 });
