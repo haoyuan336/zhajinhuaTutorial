@@ -11,6 +11,10 @@ cc.Class({
         player_pos_list: {
             default: [],
             type:cc.Node
+        },
+        game_ready_ui: {
+            default: null,
+            type: cc.Node
         }
     },
 
@@ -18,12 +22,16 @@ cc.Class({
     onLoad: function () {
         this._index = 0;
         this.playerNodeList = [];
+        this.game_ready_ui.active = false;
         global.gameEventListener = EventListener({});
         global.gameEventListener.on("sync_data",  (data)=> {
             console.log("game world sync data = " + JSON.stringify(data));
             global.playerData.uid = data.uid;
             global.playerData.house_manager_id = data.house_manager_id;
             console.log("house manager = " + data.house_manager_id);
+            if ( data.uid === data.house_manager_id){
+                this.game_ready_ui.active = true;
+            }
             var _playersData = data.players_data;
             this._index = data.index;
 
@@ -45,6 +53,12 @@ cc.Class({
                 }
             }
         });
+        global.gameEventListener.on("change_house_manager", (uid)=>{
+            global.playerData.house_manager_id = uid;
+            if (global.playerData.uid === uid){
+                this.game_ready_ui.active = true;
+            }
+        });
     },
     createPlayer: function (uid, index) {
         console.log("uid = " + uid);
@@ -58,6 +72,10 @@ cc.Class({
         player.getComponent("player-node").init(uid);
         player.position = this.player_pos_list[currentIndex].position;
         this.playerNodeList.push(player);
+    },
+    onButtonClick: function (event , customData) {
+        console.log("customData = " + customData);
+        global.eventlistener.fire("start_game");
     }
 
 

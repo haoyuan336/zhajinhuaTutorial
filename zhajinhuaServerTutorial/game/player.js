@@ -12,6 +12,10 @@ const Player = function (spec) {
        console.log("玩家掉线");
         _event.fire("disconnect", _uid);
     });
+    _socket.on("start_game", function () {
+        console.log("player start game");
+        _event.fire("start_game");
+    });
 
     that.sendSyncData = function (data) {
         console.log("send sync data  = " + JSON.stringify(data));

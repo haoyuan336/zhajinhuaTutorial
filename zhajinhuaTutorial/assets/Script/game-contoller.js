@@ -22,6 +22,10 @@ cc.Class({
             console.log("button click uid= " + uid);
             global.socket.emit("login", uid);
         });
+        global.eventlistener.on("start_game",  ()=> {
+            console.log("player house manager click start game");
+            global.socket.emit("start_game");
+        });
         global.socket.on("sync_data",  (data)=> {
             console.log("sync data = " + JSON.stringify(data));
             // global.player

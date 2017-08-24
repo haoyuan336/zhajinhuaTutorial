@@ -14,7 +14,7 @@ const SocketServer = function (server) {
             if (_roomList.length === 0){
                 _roomList.push(Room());
             }
-            if ( _roomList[_roomList.length - 1].getPlayerCount() > 6){
+            if ( _roomList[_roomList.length - 1].getPlayerCount() >= 6){
                 _roomList.push(Room());
             }
             _roomList[_roomList.length - 1].createPlayer(uid,socket);
