@@ -3,11 +3,13 @@
  */
 const Player = require("./player");
 const EventListener = require("./event-listener");
+const CardController = require('./card-controller');
 const Room = function () {
     var that = {};
     var _playerList = [];
     var _event = EventListener({});
-
+    var _cardController = CardController();
+    _cardController.init();
     const getIndex = function () {
         var seatMap = {};
         for (var i = 0 ; i < _playerList.length ; i ++){
@@ -77,7 +79,18 @@ const Room = function () {
     _event.on("start_game", function () {
 
        console.log("房主决定开始游戏");
+        pushCard();
     });
+
+    const pushCard = function () {
+        for (var i = 0 ; i < 3 ; i ++){
+            for (var j = 0 ; j < _playerList.length ; j ++){
+                var player = _playerList[j];
+                player.pushOneCard(_cardController.popCard());
+            }
+        }
+        _event.fire("push_cards");
+    };
     return that;
 };
 module.exports = Room;

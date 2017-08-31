@@ -7,7 +7,7 @@ const Player = function (spec) {
     var _socket = spec.socket;
     var _event = spec.event;
     var _index = spec.index;
-
+    var _cardList = [];
     _socket.on("disconnect", function () {
        console.log("玩家掉线");
         _event.fire("disconnect", _uid);
@@ -39,7 +39,10 @@ const Player = function (spec) {
         _socket.emit("change_house_manager", uid);
     };
     _event.on("change_house_manager_id", sendChangeHouseManager);
-
+    const pushCard = function () {
+        _socket.emit("push_card", _cardList);
+    };
+    _event.on("push_cards", pushCard);
 
 
     that.getUid = function () {
@@ -52,8 +55,13 @@ const Player = function (spec) {
         _event.off("player_offline", sendPlayerOffline);
         _event.off("send_create_player_message", sendCreatePlayerMessage);
         _event.off("change_house_manager_id", sendChangeHouseManager);
+        _event.off("push_card", pushCard);
     };
 
+    that.pushOneCard = function (card) {
+        _cardList.push(card);
+        console.log(_uid + "get " + JSON.stringify(card));
+    };
     return that;
 };
 module.exports = Player;

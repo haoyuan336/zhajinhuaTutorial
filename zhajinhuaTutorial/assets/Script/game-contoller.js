@@ -42,6 +42,10 @@ cc.Class({
            console.log("house manager is change" + uid);
             global.gameEventListener.fire("change_house_manager", uid);
         });
+        global.socket.on("push_card", ()=>{
+            console.log("server send message push card");
+            global.gameEventListener.fire("push_card");
+        });
         this.enterMainWorld();
     },
     enterMainWorld: function () {
