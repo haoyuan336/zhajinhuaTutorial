@@ -16,6 +16,10 @@ const Player = function (spec) {
         console.log("player start game");
         _event.fire("start_game");
     });
+    _socket.on("look_card", function () {
+        _event.fire("look_card", _uid);
+        _socket.emit("show_card", _cardList);
+    });
 
     that.sendSyncData = function (data) {
         console.log("send sync data  = " + JSON.stringify(data));
@@ -40,9 +44,13 @@ const Player = function (spec) {
     };
     _event.on("change_house_manager_id", sendChangeHouseManager);
     const pushCard = function () {
-        _socket.emit("push_card", _cardList);
+        _socket.emit("push_card");
     };
     _event.on("push_cards", pushCard);
+    const playerLookCard = function (uid) {
+        _socket.emit("player_look_card", uid);
+    };
+    _event.on("look_card", playerLookCard);
 
 
     that.getUid = function () {
@@ -56,6 +64,7 @@ const Player = function (spec) {
         _event.off("send_create_player_message", sendCreatePlayerMessage);
         _event.off("change_house_manager_id", sendChangeHouseManager);
         _event.off("push_card", pushCard);
+        _event.off("look_card", playerLookCard);
     };
 
     that.pushOneCard = function (card) {

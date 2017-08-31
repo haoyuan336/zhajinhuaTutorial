@@ -21,7 +21,7 @@ const EventListener = function (obj) {
                     args.push(arguments[j]);
                 }
                 handler.apply(this, args);
-                console.log("args = " + JSON.stringify(args));
+                // console.log("args = " + JSON.stringify(args));
             }
         }
     };

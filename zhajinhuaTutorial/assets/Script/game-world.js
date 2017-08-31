@@ -59,6 +59,9 @@ cc.Class({
                 this.game_ready_ui.active = true;
             }
         });
+        global.gameEventListener.on("push_card", ()=>{
+           this.game_ready_ui.active = false;
+        });
     },
     createPlayer: function (uid, index) {
         console.log("uid = " + uid);
@@ -75,7 +78,17 @@ cc.Class({
     },
     onButtonClick: function (event , customData) {
         console.log("customData = " + customData);
-        global.eventlistener.fire("start_game");
+
+        switch (customData){
+            case "start_game":
+                global.eventlistener.fire("start_game");
+                break;
+            case "lookcard":
+                global.eventlistener.fire("look_card");
+                break;
+            default:
+                break;
+        }
     }
 
 

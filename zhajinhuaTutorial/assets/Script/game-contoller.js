@@ -26,6 +26,11 @@ cc.Class({
             console.log("player house manager click start game");
             global.socket.emit("start_game");
         });
+
+        global.eventlistener.on("look_card", ()=>{
+            global.socket.emit("look_card");
+        });
+
         global.socket.on("sync_data",  (data)=> {
             console.log("sync data = " + JSON.stringify(data));
             // global.player
@@ -45,6 +50,9 @@ cc.Class({
         global.socket.on("push_card", ()=>{
             console.log("server send message push card");
             global.gameEventListener.fire("push_card");
+        });
+        global.socket.on("show_card", (card_list)=>{
+           global.gameEventListener.fire("show_card", card_list);
         });
         this.enterMainWorld();
     },
