@@ -72,7 +72,7 @@ cc.Class({
         }
         var player = cc.instantiate(this.player_node_prefab);
         player.parent = this.node;
-        player.getComponent("player-node").init(uid);
+        player.getComponent("player-node").init(uid, currentIndex);
         player.position = this.player_pos_list[currentIndex].position;
         this.playerNodeList.push(player);
     },
@@ -85,6 +85,17 @@ cc.Class({
                 break;
             case "lookcard":
                 global.eventlistener.fire("look_card");
+                break;
+            case "rate_1":
+                global.eventlistener.fire("player_choose_rate", 1);
+                break;
+            case "rate_2":
+                global.eventlistener.fire("player_choose_rate", 2);
+
+                break;
+            case "rate_5":
+                global.eventlistener.fire("player_choose_rate", 5);
+
                 break;
             default:
                 break;

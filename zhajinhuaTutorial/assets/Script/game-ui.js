@@ -11,12 +11,13 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-
+      this.node.active = false;
       global.gameEventListener.on("push_card", this.pushCard.bind(this));
       global.gameEventListener.on("show_card", this.showCard.bind(this));
     },
     pushCard: function () {
       //
+        this.node.active = true;
         this.cardNodeList = [];
         console.log("recive event push card");
         for (var i = 0 ; i < 3 ; i ++){

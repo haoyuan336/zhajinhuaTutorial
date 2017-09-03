@@ -30,6 +30,9 @@ cc.Class({
         global.eventlistener.on("look_card", ()=>{
             global.socket.emit("look_card");
         });
+        global.eventlistener.on("player_choose_rate", (data)=>{
+            global.socket.emit("player_choose_rate", data);
+        });
 
         global.socket.on("sync_data",  (data)=> {
             console.log("sync data = " + JSON.stringify(data));
@@ -54,6 +57,11 @@ cc.Class({
         global.socket.on("show_card", (card_list)=>{
            global.gameEventListener.fire("show_card", card_list);
         });
+        global.socket.on("player_choose_rate", (data)=>{
+            console.log("player choose rate = " + JSON.stringify(data));
+           global.gameEventListener.fire("player_choose_rate", data);
+        });
+
         this.enterMainWorld();
     },
     enterMainWorld: function () {
