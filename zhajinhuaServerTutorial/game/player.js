@@ -63,8 +63,14 @@ const Player = function (spec) {
       console.log("send player choose rate" + JSON.stringify(data));
       _socket.emit("player_choose_rate", data);
     };
-    _event.on("choose_rate", playerChooseRate);
+    // _event.on("choose_rate", playerChooseRate);
+    _event.on("update_player_rate", playerChooseRate);
 
+
+    const sendTurnPlayerMessage = function (data) {
+        _socket.emit("turn_player_message", data);
+    };
+    _event.on("turn_player_index", sendTurnPlayerMessage);
     that.getUid = function () {
         return _uid;
     };
@@ -78,6 +84,7 @@ const Player = function (spec) {
         _event.off("push_card", pushCard);
         _event.off("look_card", playerLookCard);
         _event.off("player_choose_rate", playerChooseRate);
+        _event.off("turn_player_index", sendTurnPlayerMessage);
     };
 
     that.pushOneCard = function (card) {

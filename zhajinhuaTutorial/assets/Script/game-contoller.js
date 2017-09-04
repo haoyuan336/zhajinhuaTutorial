@@ -61,6 +61,10 @@ cc.Class({
             console.log("player choose rate = " + JSON.stringify(data));
            global.gameEventListener.fire("player_choose_rate", data);
         });
+        global.socket.on("turn_player_message", (data)=>{
+           console.log("turn_player_message" + JSON.stringify(data));
+            global.gameEventListener.fire("turn_player_message", data);
+        });
 
         this.enterMainWorld();
     },

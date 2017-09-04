@@ -10,6 +10,9 @@ const Room = function () {
     var _event = EventListener({});
     var _cardController = CardController();
     _cardController.init();
+    var _currentTotalRate = 0;
+    var _turnPlayerIndex = 0;
+    var _currentMaxRate = 0;
     const getIndex = function () {
         var seatMap = {};
         for (var i = 0 ; i < _playerList.length ; i ++){
@@ -80,6 +83,16 @@ const Room = function () {
 
        console.log("房主决定开始游戏");
         pushCard();
+        turnPlayer();
+    });
+    _event.on("choose_rate", function (data) {
+       var rate = data.rate;
+        _currentMaxRate = data.rate;
+       _currentTotalRate += rate;
+        data.totalRate = _currentTotalRate;
+        // data.maxRate = _currentMaxRate;
+        _event.fire("update_player_rate", data);
+        turnPlayer();
     });
 
     const pushCard = function () {
@@ -91,6 +104,29 @@ const Room = function () {
         }
         _event.fire("push_cards");
     };
+
+    const turnPlayer = function () {
+        var uid = undefined;
+        for (var  i = 0 ; i < _playerList.length ; i ++){
+            if (_playerList[i].getIndex() === _turnPlayerIndex){
+                uid = _playerList[i].getUid();
+            }
+        }
+
+        _event.fire("turn_player_index", {
+            totalRate: _currentTotalRate,
+            uid: uid,
+            maxRate: _currentMaxRate
+        });
+
+
+        _turnPlayerIndex ++;
+        if (_turnPlayerIndex >= _playerList.length){
+            _turnPlayerIndex = 0;
+        }
+    };
+
+
     return that;
 };
 module.exports = Room;
