@@ -27,6 +27,13 @@ const Player = function (spec) {
             rate: rate
         });
     });
+    _socket.on("pk_choose_player", function (uid) {
+        console.log("pk choose player" + uid);
+        _event.fire("player_pk", {
+            uid: _uid,
+            targetUid: uid
+        });
+    });
 
     that.sendSyncData = function (data) {
         console.log("send sync data  = " + JSON.stringify(data));
@@ -90,6 +97,9 @@ const Player = function (spec) {
     that.pushOneCard = function (card) {
         _cardList.push(card);
         console.log(_uid + "get " + JSON.stringify(card));
+    };
+    that.getCardList = function () {
+        return _cardList;
     };
     return that;
 };

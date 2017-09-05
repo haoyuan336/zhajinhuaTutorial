@@ -37,6 +37,42 @@ const CardController = function () {
       };
       return card;
     };
+//特殊牌形的检测
+  const checkDoubel = function (cardlist) {
+    var map = {};
+    for (var i = 0 ; i < cardlist.length ; i ++){
+      var card = cardlist[i];
+      var number = card.value;
+      map[number] = true;
+    }
+    if (Object.keys(map).length === 2){
+      return true;
+    }
+    return false;
+  };
+  const checkStraight = function (cardList) {
+    
+  };
+  const checkColor = function (cardList) {
+    
+  };
+  const checkColorStraight = function (cardList) {
+
+  };
+  const checkBoss = function (cardList) {
+
+  };
+
+  var checkCardMethod = ["Doubel", "Straight" ,"Color", "ColorStraight","Boss"];
+
+
+    that.pkCards = function (cards1, cards2) {
+      console.log("card 1 = " + JSON.stringify(cards1));
+      console.log("card 2 = " + JSON.stringify(cards2));
+      console.log("is double" +checkDoubel([{value: 2, shape: defines.cardShapes.Club},
+        {value: 4, shape: defines.cardShapes.Diamond},
+        {value: 3, shape: defines.cardShapes.Club}]));
+    };
     return that;
 };
 module.exports = CardController;

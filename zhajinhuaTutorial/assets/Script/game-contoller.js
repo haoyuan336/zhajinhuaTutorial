@@ -33,6 +33,9 @@ cc.Class({
         global.eventlistener.on("player_choose_rate", (data)=>{
             global.socket.emit("player_choose_rate", data);
         });
+        global.eventlistener.on("pk_choose_player", (uid)=>{
+            global.socket.emit("pk_choose_player", uid);
+        });
 
         global.socket.on("sync_data",  (data)=> {
             console.log("sync data = " + JSON.stringify(data));

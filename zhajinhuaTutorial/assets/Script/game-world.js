@@ -97,6 +97,9 @@ cc.Class({
                 global.eventlistener.fire("player_choose_rate", 5);
 
                 break;
+            case "pk_button":
+                global.gameEventListener.fire("player_pk");
+                break;
             default:
                 break;
         }

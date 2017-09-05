@@ -26,10 +26,15 @@ cc.Class({
         choose_rate_label: {
             default: null,
             type: cc.Label
+        },
+        choose_player_button: {
+            default: null,
+            type: cc.Button
         }
     },
 
     onLoad: function () {
+        this.choose_player_button.node.active = false;
         this.node.addComponent(cc.Sprite).spriteFrame = this.sprite_frames[Math.round(Math.random() * this.sprite_frames.length)];
 
         // const  changeHouseManager =  (uid) =>{
@@ -48,7 +53,17 @@ cc.Class({
         global.gameEventListener.on("change_house_manager", this.changeHouseManager.bind(this));
         global.gameEventListener.on("push_card",this.pushCard.bind(this));
         global.gameEventListener.on("player_choose_rate",this.playerChooseRate.bind(this));
-
+        global.gameEventListener.on("player_pk",this.playerPK.bind(this));
+        global.gameEventListener.on("pk_choose_player", this.pkchoosedPlayer.bind(this));
+    },
+    pkchoosedPlayer: function () {
+        this.choose_player_button.node.active = false;
+    },
+    playerPK: function () {
+        console.log("player node player pk");
+        if (this.uid !== global.playerData.uid){
+            this.choose_player_button.node.active = true;
+        }
     },
     playerChooseRate: function (data) {
         if (data.uid === this.uid){
@@ -100,7 +115,17 @@ cc.Class({
         // global.gameEventListener.off("changeHouseManager", this.changeHouseManager);
         global.gameEventListener.off("change_house_manager", this.changeHouseManager);
         global.gameEventListener.off("push_card", this.pushCard);
-    }
+        global.gameEventListener.off("player_choose_rate",this.playerChooseRate);
+        global.gameEventListener.off("player_pk",this.playerPK);
+        global.gameEventListener.off("pk_choose_player", this.pkchoosedPlayer);
+    },
 
+    onButtonClick: function (event, customData) {
+        if (customData === "choose_player_button"){
+            cc.log("choose me =" + this.uid);
+            global.eventlistener.fire("pk_choose_player", this.uid);
+            global.gameEventListener.fire("pk_choose_player");
+        }
+    }
 
 });

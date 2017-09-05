@@ -26,6 +26,10 @@ cc.Class({
         rate_5_button: {
             default: null,
             type: cc.Button
+        },
+        pk_button: {
+            default: null,
+            type: cc.Button
         }
 
     },
@@ -74,6 +78,8 @@ cc.Class({
                 }
             }
         }
+        this.pk_button.interactable = value;
+
 
     },
     playerChooseRate: function (data) {

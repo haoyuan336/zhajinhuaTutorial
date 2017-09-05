@@ -95,6 +95,7 @@ const Room = function () {
         turnPlayer();
     });
 
+
     const pushCard = function () {
         for (var i = 0 ; i < 3 ; i ++){
             for (var j = 0 ; j < _playerList.length ; j ++){
@@ -105,6 +106,24 @@ const Room = function () {
         _event.fire("push_cards");
     };
 
+
+
+    const playerPK = function (data) {
+        console.log("player pk = " + JSON.stringify(data));
+        var map = {};
+        for (var i = 0 ; i < _playerList.length ; i ++){
+            map[_playerList[i].getUid()] = _playerList[i];
+        }
+        console.log("map = " + JSON.stringify(map));
+
+        var player1 = map[data.uid];
+        console.log("player1 = " + JSON.stringify(player1));
+        var player2 = map[data.targetUid];
+        var result = _cardController.pkCards(player1.getCardList(), player2.getCardList());
+        console.log("result = " + result);
+
+    };
+    _event.on("player_pk",playerPK);
     const turnPlayer = function () {
         var uid = undefined;
         for (var  i = 0 ; i < _playerList.length ; i ++){
