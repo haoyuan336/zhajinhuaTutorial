@@ -51,27 +51,107 @@ const CardController = function () {
     return false;
   };
   const checkStraight = function (cardList) {
-    
+    var valueList = [];
+    for (var i = 0 ; i < cardList.length ; i ++){
+       valueList.push(defines.cardValues[cardList[i].value]);
+    }
+    console.log('value list = ' + JSON.stringify(valueList));
+    valueList.sort(function (a, b) {
+      return a < b;
+    });
+    if (valueList[0] - valueList[1] === 1 && valueList[1] - valueList[2] === 1){
+      return true;
+    }
+    if (valueList[0] === 14){
+      valueList[0] = 1;
+    }
+    console.log("value list = " + JSON.stringify(valueList));
+    valueList.sort(function (a, b) {
+      return a < b;
+    });
+    if (valueList[0] - valueList[1] === 1 && valueList[1] - valueList[2] === 1){
+      return true;
+    }
+
+    return false;
+    // console.log('value list = ' + JSON.stringify(valueList));
   };
   const checkColor = function (cardList) {
-    
+    var map = {};
+    for (var i = 0 ; i < cardList.length ; i ++){
+      var card = cardList[i];
+      map[card.shape] = true;
+    }
+    if (Object.keys(map).length === 1){
+      return true;
+    }
+    return false;
   };
   const checkColorStraight = function (cardList) {
-
+    if (checkStraight(cardList) && checkColor(cardList)){
+      return true;
+    }
+    return false;
   };
   const checkBoss = function (cardList) {
-
+    var map = {};
+    for (var i = 0 ; i < cardList.length ; i ++){
+      var card = cardList[i];
+      map[card.value] = true;
+    }
+    if (Object.keys(map).length === 1){
+      return true;
+    }
+    return false;
   };
 
-  var checkCardMethod = ["Doubel", "Straight" ,"Color", "ColorStraight","Boss"];
+  var checkCardMethod = {
+    "Doubel" : 1,
+    "Straight": 2,
+    "Color": 3,
+    "ColorStraight": 4,
+    "Boss": 5
+  };
+    //["Doubel", "Straight" ,"Color", "ColorStraight","Boss"];
 
+  var checkMethodMap = {
+    "Doubel": checkDoubel,
+    "Straight": checkStraight,
+    "Color": checkColor,
+    "ColorStraight": checkColorStraight,
+    "Boss": checkBoss
+  };
 
     that.pkCards = function (cards1, cards2) {
-      console.log("card 1 = " + JSON.stringify(cards1));
-      console.log("card 2 = " + JSON.stringify(cards2));
-      console.log("is double" +checkDoubel([{value: 2, shape: defines.cardShapes.Club},
-        {value: 4, shape: defines.cardShapes.Diamond},
-        {value: 3, shape: defines.cardShapes.Club}]));
+      cards1 = [{value: "a", shape:defines.cardShapes.Diamond},
+        {value: "a", shape:defines.cardShapes.Club},
+        {value: "3", shape:defines.cardShapes.Heart}];
+      cards2 = [{value: "3", shape:defines.cardShapes.Diamond},
+        {value: "3", shape:defines.cardShapes.Club},
+        {value: "2", shape:defines.cardShapes.Heart}];
+
+      var cardsList = [cards1, cards2];
+      var scoreMap = {
+        "0": 0,
+        "1": 0
+      };
+      for (var j = 0 ; j < 2 ; j ++){
+        for (var i in checkCardMethod){
+          var method = checkMethodMap[i];
+          if (method(cardsList[j]) === true){
+            if (scoreMap[j + ""] < checkCardMethod[i]){
+              scoreMap[j + ""] = checkCardMethod[i];
+            }
+          }
+        }
+      }
+      console.log("score = " + JSON.stringify(scoreMap));
+      if (scoreMap[0] === scoreMap[1]){
+
+      }else if (scoreMap[0] > scoreMap[1]){
+        return true;
+      }
+      return false;
     };
     return that;
 };
