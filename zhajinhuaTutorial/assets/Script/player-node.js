@@ -30,6 +30,10 @@ cc.Class({
         choose_player_button: {
             default: null,
             type: cc.Button
+        },
+        pk_result_label: {
+            default: null,
+            type: cc.Label
         }
     },
 
@@ -55,6 +59,7 @@ cc.Class({
         global.gameEventListener.on("player_choose_rate",this.playerChooseRate.bind(this));
         global.gameEventListener.on("player_pk",this.playerPK.bind(this));
         global.gameEventListener.on("pk_choose_player", this.pkchoosedPlayer.bind(this));
+        global.gameEventListener.on("pk_result", this.pkResult.bind(this));
     },
     pkchoosedPlayer: function () {
         this.choose_player_button.node.active = false;
@@ -64,6 +69,14 @@ cc.Class({
         if (this.uid !== global.playerData.uid){
             this.choose_player_button.node.active = true;
         }
+    },
+    pkResult: function (data) {
+      console.log("player node pk result" + JSON.stringify(data));
+      if (data.win_uid === this.uid){
+        this.pk_result_label.string = "pk win";
+      }else if (data.lose_uid === this.uid){
+        this.pk_result_label.string = "pk lose";
+      }
     },
     playerChooseRate: function (data) {
         if (data.uid === this.uid){
@@ -118,6 +131,7 @@ cc.Class({
         global.gameEventListener.off("player_choose_rate",this.playerChooseRate);
         global.gameEventListener.off("player_pk",this.playerPK);
         global.gameEventListener.off("pk_choose_player", this.pkchoosedPlayer);
+        global.gameEventListener.off("pk_result", this.pkResult);
     },
 
     onButtonClick: function (event, customData) {

@@ -81,6 +81,10 @@ const Player = function (spec) {
     that.getUid = function () {
         return _uid;
     };
+    const sendPKResult = function (data) {
+        _socket.emit("pk_result", data);
+    };
+    _event.on("pk_result", sendPKResult);
     that.getIndex = function () {
         return _index
     };

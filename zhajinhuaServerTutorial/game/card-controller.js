@@ -112,8 +112,6 @@ const CardController = function () {
     "ColorStraight": 4,
     "Boss": 5
   };
-    //["Doubel", "Straight" ,"Color", "ColorStraight","Boss"];
-
   var checkMethodMap = {
     "Doubel": checkDoubel,
     "Straight": checkStraight,
@@ -121,14 +119,42 @@ const CardController = function () {
     "ColorStraight": checkColorStraight,
     "Boss": checkBoss
   };
+  const sortCard = function (cards) {
+
+    if (checkDoubel(cards)){
+      var map = {};
+      for (var i = 0; i < cards.length ; i ++){
+        var card = cards[i];
+        if (map.hasOwnProperty(card.value)){
+          map[card.value].push(card);
+        }else {
+          map[card.value] = [card];
+        }
+      }
+      var value = 0;
+      for (var i in map){
+          if (map[i].length === 1){
+            value = i;
+          }
+        }
+      cards.sort(function (a, b) {
+        return a.value === value;
+      });
+      return cards;
+    }
+    cards.sort(function (a ,b) {
+      return defines.cardValues[a.value] < defines.cardValues[b.value];
+    });
+    return cards;
+  };
 
     that.pkCards = function (cards1, cards2) {
-      cards1 = [{value: "a", shape:defines.cardShapes.Diamond},
-        {value: "a", shape:defines.cardShapes.Club},
-        {value: "3", shape:defines.cardShapes.Heart}];
-      cards2 = [{value: "3", shape:defines.cardShapes.Diamond},
-        {value: "3", shape:defines.cardShapes.Club},
-        {value: "2", shape:defines.cardShapes.Heart}];
+      // cards1 = [{value: "3", shape:defines.cardShapes.Heart},
+      //   {value: "12", shape:defines.cardShapes.Diamond},
+      //   {value: "2", shape:defines.cardShapes.Spade}];
+      // cards2 = [{value: "5", shape:defines.cardShapes.Heart},
+      //   {value: "9", shape:defines.cardShapes.Diamond},
+      //   {value: "a", shape:defines.cardShapes.Spade}];
 
       var cardsList = [cards1, cards2];
       var scoreMap = {
@@ -145,9 +171,25 @@ const CardController = function () {
           }
         }
       }
-      console.log("score = " + JSON.stringify(scoreMap));
+      // console.log("score = " + JSON.stringify(scoreMap));
       if (scoreMap[0] === scoreMap[1]){
+        cards1 = sortCard(cards1);
+        cards2 = sortCard(cards2);
+        console.log("card1 = " + JSON.stringify(cards1));
+        console.log("card2 = " + JSON.stringify(cards2));
 
+        for (var i = 0 ; i < 3 ; i ++){
+          var card1 = cards1[i];
+          var card2 = cards2[i];
+          if (defines.cardValues[cards1[i].value] > defines.cardValues[cards2[i].value]){
+            return true;
+          }else if (defines.cardValues[cards1[i].value] < defines.cardValues[cards2[i].value]){
+            return false;
+          }
+        }
+        if (cards1[0].shape > cards2[2].shape){
+          return true;
+        }
       }else if (scoreMap[0] > scoreMap[1]){
         return true;
       }

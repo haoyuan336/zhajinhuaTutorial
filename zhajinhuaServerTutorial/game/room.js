@@ -121,7 +121,10 @@ const Room = function () {
         var player2 = map[data.targetUid];
         var result = _cardController.pkCards(player1.getCardList(), player2.getCardList());
         console.log("result = " + result);
-
+        _event.fire("pk_result", {
+            win_uid: result?data.uid:data.targetUid,
+            lose_uid: result?data.targetUid:data.uid
+        })
     };
     _event.on("player_pk",playerPK);
     const turnPlayer = function () {

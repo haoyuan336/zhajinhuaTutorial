@@ -68,6 +68,10 @@ cc.Class({
            console.log("turn_player_message" + JSON.stringify(data));
             global.gameEventListener.fire("turn_player_message", data);
         });
+        global.socket.on("pk_result", (data)=>{
+           console.log("pk result" + JSON.stringify(data));
+            global.gameEventListener.fire("pk_result", data);
+        });
 
         this.enterMainWorld();
     },
